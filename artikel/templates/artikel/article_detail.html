@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+
+{% block page_title %}
+    {{article.judul}}
+{% endblock page_title %}
+
+
+{% block contents %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{article.judul}}</h1>
+        <p>{{article.kategori}}|{{article.published}}</p>
+        <div class="container">
+        
+        {% for f in article.File.all %}
+            <!-- <img class="img-fluid" src="{{f.image.url}}" alt="Responsive image"> -->
+        {% endfor %}
+        
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+        {% for f in article.File.all %}
+        
+                {% if forloop.counter == 1 %}
+                    <div class="carousel-item active">
+                {% else %}
+                    <div class="carousel-item">
+                {% endif %}
+                    <img width='480' height='360' class="d-block w-100" src="{{f.image.url}}" alt="First slide">
+              </div>
+        {% endfor %}        
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        
+        
+        <h6 style="text-align: center;">{{article.judul}}</h6>
+        <br>    
+        <br>
+        </div>
+        <p style="text-align:justify;">{{article.isi|linebreaksbr}}</p>
+        <h3>Penulis: {{article.author}}</h3>
+        <br>
+        <div class="fb-comments" data-href="http://djblogade.herokuapp.com/blog/detail/{{article.slug}}" data-numposts="10" data-width=""></div>
+        <br>
+        
+    </div>
+    <div class="col-sm">
+        <h3>Kategori</h3>
+        <ul class="list-group list-group-flush">
+            {% for kategori in kategori_list %}
+                <li class="list-group-item"><a href="{% url 'artikel:category' kategori 1%}">{{kategori}}</a></li>
+            {% endfor %}
+        </ul>
+        <h3>Artikel Serupa</h3>
+        <ul class="list-group list-group-flush">
+            {% for artikel in artikel_serupa %}
+
+                
+                {% if forloop.counter is not 3 %}
+                    <li class="list-group-item">
+                        <a href="{% url 'artikel:detail' artikel.slug%}">{{artikel.judul}}</a>
+                        <p>{{artikel.published|date}}</p>
+                    </li>
+                
+                {% endif %}
+                    
+                
+            {% endfor %}
+                <li class="list-group-item">
+                    <a href="{% url 'artikel:category' article.kategori 1%}">Selengkapnya</a>
+                </li>
+        </ul>
+    </div>
+</div>
+    
+{% endblock contents %}

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'vendor/image/logo.png' %}">
+    <title>
+        {% block page_title %}
+
+        {% endblock page_title %}
+    </title>
+    {% include "snippets/styles.html" %}
+</head>
+
+<body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v7.0">
+    </script>
+    {% include "snippets/navbar.html" %}
+    <div class="container bg-light shadow-lg" style="margin-top:100px;">
+        <br>
+        <div class="container">
+            {% block contents %}
+            {% endblock contents %}
+        </div>
+        <br>
+    </div>
+    <br>
+    <br>
+    {% include "snippets/scripts.html" %}
+
+</body>
+{% include 'snippets/footer.html' %}
+
+</html>

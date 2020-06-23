@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+{{page_title}}
+{% endblock page_title %}
+
+
+{% block contents %}
+<h1>{{page_title}}</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for form in form %}
+    <div class="form-group">
+        <label for="{{form.id_for_label}}">{{form.label}}</label>
+        {{form}}
+    </div>
+  {% endfor %}
+    <br>
+        <button type="submit" class="btn btn-primary">{{button}}</button>
+</form>
+{% endblock contents %}

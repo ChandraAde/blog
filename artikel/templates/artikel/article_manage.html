@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block page_title %}
+Manage Article
+{% endblock page_title %}
+
+
+{% block contents %}
+<h1>Manage Article</h1>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Judul</th>
+        <th scope="col">Kategori</th>
+        <th scope="col">Author</th>
+        <th scope="col">Published</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody> 
+        {% for article in article %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td><a href="{% url 'artikel:detail' article.slug %}">{{article.judul}}</a></td>
+            <td>{{article.kategori}}</td>
+            <td>{{article.published|date}}</td>
+            <td>{{article.author}}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Action
+                    </button>
+                    <div class="dropdown-menu">
+                    </div>
+                  </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock contents %}
